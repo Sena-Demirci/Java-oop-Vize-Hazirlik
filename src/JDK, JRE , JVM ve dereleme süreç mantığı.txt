@@ -1,0 +1,26 @@
+ -JDK ( Java Development Kit / Java Geliştirme kiti):
+ Java ile yazılım geliştirmek için gereken araç, kütüphane ve derleyicileri kapsayan bir yazılım geliştirme kititdir.
+
+-JVM (Java Virtual Machine / Java Sanal Makinesi):
+ Derlenmiş Java bytekodunu doğrudan bilgisayarın işletim sistemnin(exp: windows, macOs, Linux etc..) anlayacağı makine diline
+ çeviren sanal bir motordur.
+ Java'nın ünlü "Bir kez yaz, her yerde çalıştır" (Write Once, Run Anywhere) felsefesi tamamen JVM sayesinde gerçekleşir.
+ Her işletim sistemi için ayrı bir JVM sürümü kurulur, ancak aynı Java kodu tüm bu farklı JVM'lerde aynı şekilde çalışır.
+
+
+ -JRE (Java Runtime Environment / Java Çalışma Ortamı):
+ Yazılmış olan Java programların bilgisayarda sorunsuz şekilde çalışmasını sağlayan bir yazılım paketidir.
+ Bünyesinde JVM, temel Java kütüphaneler, eklentiler ve sistem dosyaları barındrır.
+ Javanın ilk çıkışından (Java 1.0 - 1996) , 2015 tarihine kadar sistem bağımlı dönem yaşanmıştır.
+ Bu dönemi sona erdiren kırılma noktalarından biri ise Minecraft oyunu olmuştur. Minecraft 2009 tarhihinde
+ piyasaya sürülmüş olup tam sürümünü 2011 yılında tamamlamıştır. Ancak bilgisayarda merkezi bir JRE tanımlı değilse,
+ oyun işletim sisteminden Java motoru  talep edilirdi, eğer bulamazsa crash report(çökme raporu) veriridi..
+ 2015 yılında Minecraftın geliştiricisi Mojang, yeni bir Minecraft Launcher yayınladı.Bu güncelleme ile birlikte
+ Javayı oyunun kendi dosyalarıının içine gizlice gömdüler (Embedded JRE). O günden itibaren artık bilgisayara harici Java kurma
+ zoruunluluğu ortadan kalktı.
+
+
+[Kaynak Kod: .java] -> (JDK / javac) -> [Ara Kod: .class (Bytecode)] -> (JRE kütüphaneleri) -> (JVM) -> [Makine Kodu: 0 ve 1]
+
+JDK kodu platformdan bağımsız bir ara dile çevirir, JRE bu dilin çalışması için gerekli ekosistemi ve kütüphaneleri sağlar,
+JVM ise o an üzerinde bulunduğu donanım mimarisine göre kodu yürütür.

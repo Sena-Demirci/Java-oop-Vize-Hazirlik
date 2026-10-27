@@ -1,0 +1,1 @@
+// Sınıf Tasarımı, Kapsülleme, Bellek Yönetimi ve Parametre Aktarımı

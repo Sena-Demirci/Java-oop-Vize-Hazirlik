@@ -1,0 +1,1 @@
+//Statik Üyeler, Üretici Metotlar (Factory Methods), Bileşim ve İç İçe Sınıflar
