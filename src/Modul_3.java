@@ -97,11 +97,36 @@ class Siparis {
 
 }
 
+// KONU 4: ÜRETİCİ METOTLAR (FACTORY METHODS) VE PRIVATE YAPICI
+
+class  Sicaklik {
+    private double celsius;
+
+    // 1. PRIVATE YAPICI: Dışarıdan 'new Sicaklik(...)' denmesini engelliyoruz.
+    private Sicaklik(double celsius) {
+        this.celsius = celsius;
+    }
+
+    // 2. STATİK ÜRETİCİ METOT (Celsius ile nesne üretir):
+    public static Sicaklik celsiusIle(double c) {
+        return new Sicaklik(c); // sınıf içi private yapıcıya erişebilir
+    }
+    // 3. STATİK ÜRETİCİ METOT (Fahrenheit ile nesne üretir):
+    // Bu da 'double' parametre alıyor ama metot ismi farklı olduğu için çakışma olmuyor
+    public static Sicaklik fahrenheitIle(double f) {
+        doublec = (f -32) * 5 / 9; // Fahrenhaitı , Celsiusa çevirip nesneyi kuruyyoruz
+        return new Sicaklik(c);
+    }
+    public double getCelsius() {
+        return celsius;
+    }
+}
+
 
 
 public class Modul_3 {
     public static void main(String[] args) {
-        System.out.println("=== 2\. PARÇA: 'final' TESTİ ===");
+        System.out.println("=== 2. PARÇA: 'final' TESTİ ===");
 
         Ders d1 = new Ders("YAZ201", "Nesne Yönelimli Programlama");
         System.out.println(Ders.FAKULTE_ADI + " - " + d1.getDersKodu() + ": " + d1.getDersAdi());
@@ -118,7 +143,7 @@ public class Modul_3 {
 
 
 
-        System.out.println("=== 3\. PARÇA: 'static' TESTİ ===");
+        System.out.println("=== 3. PARÇA: 'static' TESTİ ===");
         // 1. Henüz HİÇ nesne oluşturulmamışken bile statik metoda sınıf adıyla erişebiliriz:
         System.out.println("Başlangıç Sipariş Sayısı: " + Siparis.getToplamSiparisSayisi()); // Çıktı: 0
 
@@ -134,6 +159,18 @@ public class Modul_3 {
         // 4. Ancak toplam sipariş sayısı hepsi için ORTAKTIR (Static):
         System.out.println("Toplam Sipariş (Sınıf Adıyla): " + Siparis.getToplamSiparisSayisi());
         // Çıktı: 3
+
+        System.out.println("=== 4. PARÇA: FACTORY METHOD TESTİ ===");
+        // Sicaklik s = new Sicaklik(25);
+        // derleme hatası: Yapıcı 'private' olduğu için doğrudan 'new' kullanılamaz.
+
+        // anlamlı üretici methodlar üzerinden nesne üretimi
+        Sicaklik sC = Sicaklik.celsiusIle(25);
+        Sicaklik sF = Sicaklik.fahrenheitIle(77);
+
+        System.out.println("Celsius nesnesi değeri: " + sC.getCelsius() + " °C");
+        System.out.println("77 °F kaç °C eder?: " + sF.getCelsius() + " °C");
+        // Çıktı: 25.0
     }
 
 }
