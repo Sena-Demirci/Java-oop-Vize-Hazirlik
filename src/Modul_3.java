@@ -64,6 +64,41 @@ class Ders {
     //derleyici 'final' değişkene yeniden değer atanmasına izin vermez
 
 }
+
+// KONU 3: 'static' ALANLAR VE METOTLAR
+
+class Siparis {
+    // 1. INSTANCE (NESNEYE ÖZEL) ALAN:
+    // Her sipariş nesnesinin kendi ürün adı vardır.
+    private String urunAdi;
+
+    // 2. STATIC (SINIFA AİT) ALAN:
+    // Tüm nesnelerin ortaklaşa paylaştığı TEK BİR bellektedir.
+    // Kaç tane Siparis nesnesi üretilirse üretilsin bu sayaç ortak artar.
+    private static int toplamSiparisSayisi = 0;
+
+    public Siparis(String urunAdi) {
+        this.urunAdi = urunAdi;
+        toplamSiparisSayisi++; // Her yeni siparişte ortak sayacı 1 artırıyoruz
+    }
+
+    // 3. STATIC METOT:
+    // Nesne üretmeye gerek kalmadan doğrudan
+    // 'Siparis.getToplamSiparisSayisi()' şeklinde çağrılır.
+    public static int getToplamSiparisSayisi() {
+        // - Statik metot içinden statik olmayan 'urunAdi' alanına DOĞRUDAN ERİŞİLEMEZ! (Derleme Hatası)
+        // - Statik metot içinde 'this' veya 'super' KULLANILAMAZ! (Çünkü ortada nesne olmayabilir)
+        return toplamSiparisSayisi;
+
+    }
+    public String getUrunAdi() {
+        return urunAdi;
+    }
+
+}
+
+
+
 public class Modul_3 {
     public static void main(String[] args) {
         System.out.println("=== 2\. PARÇA: 'final' TESTİ ===");
@@ -74,13 +109,31 @@ public class Modul_3 {
         // d1.dersKodu = "YAZ102";
         //DERLEME HATASI! 'final' değişkene yeniden değer atanamaz.
 
-        final Ders sabitDers = new Ders("MAT101", "Matematik I");
-        //DERLEME HATASI! 'sabitDers' değişkeni 'final' olduğu için başka bir nesnenin adresini tutamaz:
-        //sabitDers = new Ders("FZK101", "Fizik I");
+        final Ders sabitDers = new Ders("MAT101", "Matematik I"); // burada ilk atama yapılıyor , final olduğu için sabitDers artık değiştirilemez
+        //meselaa "sabitDers = new Ders("FZK101", "Fizik I");" derleyici hata verir burada
 
         //'sabitDers' referansının adresi sabittir ama gösterdiği nesnenin 'final' olmayan alanları değiştirilebilir:
         sabitDers.setDersAdi("İleri Matematik I");
         System.out.println("Güncellenmiş Ders Adı: " + sabitDers.getDersAdi());
+
+
+
+        System.out.println("=== 3\. PARÇA: 'static' TESTİ ===");
+        // 1. Henüz HİÇ nesne oluşturulmamışken bile statik metoda sınıf adıyla erişebiliriz:
+        System.out.println("Başlangıç Sipariş Sayısı: " + Siparis.getToplamSiparisSayisi()); // Çıktı: 0
+
+        // 2. Nesneleri oluşturuyoruz:
+        Siparis s1 = new Siparis("Pizza");
+        Siparis s2 = new Siparis("Burger");
+        Siparis s3 = new Siparis("Kahve");
+
+        // 3. Her nesnenin kendi ürün adı farklıdır (Instance):
+        System.out.println("1\. Sipariş: " + s1.getUrunAdi()); // Pizza
+        System.out.println("2\. Sipariş: " + s2.getUrunAdi()); // Burger
+
+        // 4. Ancak toplam sipariş sayısı hepsi için ORTAKTIR (Static):
+        System.out.println("Toplam Sipariş (Sınıf Adıyla): " + Siparis.getToplamSiparisSayisi());
+        // Çıktı: 3
     }
 
 }
