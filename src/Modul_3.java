@@ -50,7 +50,7 @@ class Ders {
     private final String dersKodu;
     private String dersAdi; // final deeil, değiştirilebirşl
 
-    publc Ders(String dersKodu, String dersAdi) {
+    public Ders(String dersKodu, String dersAdi) {
         this.dersKodu = dersKodu; // ilk ve son atama yapılıyor
         this.dersAdi = dersAdi;
     }
