@@ -18,7 +18,7 @@ class FerrariF1Araci {
 
     // 2.Konu: Çok biçimlilik (Polymorphism) , Upcasting ve Downcasting)
 
-    //ikinci bir alt sınıf tanımlama yok
+    //ikinci bir alt sınıf tanımlıyoruz
     class FerrariSiralamaModu extends FerrariF1Araci {
         private boolean ersKullanimiAktif; // ers:  ekstra elektrik gücüdür
         public FerrariSiralamaModu(String model , int beygirGucu , boolean ersKullanimiAktif) {
