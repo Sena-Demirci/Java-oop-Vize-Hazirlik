@@ -16,6 +16,27 @@ class FerrariF1Araci {
         System.out.println("Araç modeli: " + model + " |Güç : " + beygirGucu + "HP");
     }
 
+    // 2.Konu: Çok biçimlilik (Polymorphism) , Upcasting ve Downcasting)
+
+    //ikinci bir alt sınıf tanımlama yok
+    class FerrariSiralamaModu extends FerrariF1Araci {
+        private boolean ersKullanimiAktif; // ers:  ekstra elektrik gücüdür
+        public FerrariSiralamaModu(String model , int beygirGucu , boolean ersKullanimiAktif) {
+            super(model , beygirgucu);
+            this.ersKullanimiAktif = ersKullanimiAktif;
+        }
+        // override
+        public void telemetriYazdir() {
+            super.telemetriYazdir();
+            System.out.println("Sıralama Modu: 1.5 Sıralama Turu | ERS deroyment:"
+                    + (ersKullanimiAktif ? "MAX GÜÇ(%100)" : "ŞARJ MODU") );
+        }
+        // mor sektör
+        public void morSektorDerecesiAt() {
+            System.out.println("Leclerc pole pozisyonu için geliyor!");
+        }
+    }
+
 }
 //Alt snıf (Subclass / child) -> 'extends' ile FerrariF1Araci sınıfından kalıtım alır
 class FerrariYarisModu extends FerrariF1Araci {
@@ -76,6 +97,39 @@ class FerrariYarisModu extends FerrariF1Araci {
             FerrariYarisModu sf24 = new FerrariYarisModu("SF-24" , 1050 , "Soft(Kırmızı-C5)", true);
             System.out.println("\\n--- PİT DUVARI CANLI TELEMETRİ VERİSİ ---");
             sf24.telemetriYazdir();
+
+            System.out.println("\\n=== 2.KONU: ÇOK BİÇİMLİLİK VE UPCASTING TESTİ ===");
+
+            // 1. UPCASTING (Yukarı Doğru Dönüşüm):
+            // Üst sınıf referansı (FerrariF1Araci), alt sınıf nesnesini tutuyor.
+            FerrariF1Araci garajAraci1 = new FerrariYarisModu("SF-24", 1050, "Medium (Sarı)", false);
+            FerrariF1Araci garajAraci2 = new FerrariSiralamaModu("SF-24", 1080, true);
+
+            // 2. POLİMORFİK DİZİ (Polymorphic Array):
+            // Garajdaki farklı modlardaki araçları tek bir üst sınıf dizisinde toplanır
+            FerrariF1Araci[] pitGarji = { garajAraci1 , garajAraci2};
+
+            System.out.println("\n--- PİT DUVARI TOPLU TELEMETRİ OKUMASI ---");
+
+            for (FerrariF1Araci arac: pitGaraji) {
+                // DİNAMİK BAĞLAMA (Dynamic Binding):
+                // Referans tipi 'FerrariF1Araci' olsa da, Java arka planda nesnenin GERÇEK TÜRÜNÜ
+                // anlar ve ilgili sınıfın ezilmiş (@Override) 'telemetriYazdir' metodunu çalıştırır
+
+                arac.telemtriYazdir();
+                System.out.println("---------------------------------");
+            }
+
+            // 3. DOWNCASTING (Aşağı Doğru Dönüşüm) VE 'instanceof' KONTROLÜ:
+            // 'garajAraci2' üzerinden alt sınıfa özel 'morSektorDerecesiAt()' metodunu doğrudan çağıramayız
+            // Önceden 'instanceof' ile tip kontrolü yapıp tür dönüşümü (Casting) yapmamız gerekir:
+
+            if(garajAraci2 instanceof FerrariSiralamaModu) {
+                // 'FerrariF1Araci' türündeki referansı 'FerrariSiralamaModu' türüne dönüştürüyoruz (Downcasting)
+                FerrariSiralamaModu siralamaAraci = (FerrariSiralamaModu) garajAraci2;
+
+                siralamaAraci.morSektorDerecesiAt();
+            }
         }
     }
 
