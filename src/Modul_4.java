@@ -35,6 +35,46 @@ class FerrariF1Araci {
         public void morSektorDerecesiAt() {
             System.out.println("Leclerc pole pozisyonu için geliyor!");
         }
+
+        // 3.KONU:SOYUT SINIFLAR (ABSTRACT CLASS) VE ARAYÜZLER (INTERFACE)
+
+
+        // 1. Interfac (Arayüz-1): DRS Yeteneği Sözleşmesi
+        interface DRSyonetimi {
+            //Arayüzdeki metotlar varsayılan olarak 'public abstract' kabul edilir, gövdesizdir
+            void drsAc();
+            void drsKapat();
+
+        }
+
+        // 2 .Interface (arayüz-2) : pit stratejisi sözleşmesi
+        interface PitStratejisi {
+            void pitStopYap(String lastikTuru);
+        }
+
+        //3. ABSTRACT CLASS (soyut sınıf):
+        // direkt new SoyutF1Araci() diyerek nesne üretilimez
+        // extends eden sınıflara temel şablon oluşturur
+
+        abstract SoyutF1Araci(String pilotAdi) {
+            this.pilotAdi = pilotAdi;
+        }
+        // gövdeli (somut) metot: Tüm alt sınıflar aynen kullanabilir
+        public void motorAtesle() {
+            System.out.println(pilotAdi + "için V6 Turbo-Hibrit motor çalıştırıldı.");
+        }
+        // gövdesiz (abstract) metot : Alt sınıflar bunu kesinlikle ezmek @Override etmek zorunda
+        public abstract void yarisModunuAyarla();
+    }
+
+    // 4. SOMUT SINIF (concrete class):
+    // extends ile tek bir abstract sınıfı kalıtır
+    // implements ile birden fazla arayüzü aynı anda uygulayabilir
+    class SF24YarisAraci extends SoyutF1Araci implements DRSYonetimi, PitStratejisi {
+        // Soyut sınıftan gelen 'abstract' metodu doldurmak ZORUNDAYIZ:
+        public void yarisModunuAyarla() {
+        System.out.println(" SF-24 'Maksimum Saldırı' moduna alındı!"); }
+
     }
 
 }
